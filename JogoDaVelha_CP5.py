@@ -56,6 +56,15 @@ def posicaoValida(linha, coluna, tabuleiro):
         return False
     elif tabuleiro[linha][coluna] == " ":
         return True
+
+# Função para validar a posição do computador. ( intuito de não imprimir as mesmas informações que as do jogador )
+def posicaoValidaComputador(linha, coluna, tabuleiro):
+    if linha not in range(3) or coluna not in range(3):
+        return False
+    elif tabuleiro[linha][coluna] != " ":
+        return False
+    elif tabuleiro[linha][coluna] == " ":
+        return True
     
 
 # Função  que  verifica  se  houve  um  vencedor, seja ele o jogador 1, jogador 2 ou máquina.Os parâmetros e o retorno devem ser definidos pelo programador.
@@ -119,25 +128,34 @@ def modoFacil():
     tabuleiro = inicializaTabuleiro()
     jogador = "X"
     aux = False
-    while aux == True:
+    while aux == False:
         imprimirTabuleiro(tabuleiro)
         jogadaUsuario(tabuleiro, jogador)
-        aux = verificaVelha(tabuleiro)
-        if aux == False:
-            return
         aux = verificaVencedor(tabuleiro)
         if aux == True:
-            print(f"O jogador venceu!")
-            return
+            imprimirTabuleiro(tabuleiro)
+            break
+        aux = verificaVelha(tabuleiro)
+        if aux == True:
+            imprimirTabuleiro(tabuleiro)
+            break
         imprimirTabuleiro(tabuleiro)
+        print("Vez do computador...")
         jogadaFacil(tabuleiro)
-        aux = verificaVelha(tabuleiro)
-        if aux == False:
-            return
         aux = verificaVencedor(tabuleiro)
         if aux == True:
-            print(f"O computador venceu!")
-            return
+            imprimirTabuleiro(tabuleiro)
+            break
+        aux = verificaVelha(tabuleiro)
+        if aux == True:
+            imprimirTabuleiro(tabuleiro)
+            break
+    cond = input("Deseja jogar novamente? (S/N) ")
+    if cond == "S" or cond == "s":
+        modoFacil()
+    else:
+        print("\nObrigado por jogar!\nEncerrando programa...")
+        return
 
 # Função que realiza todas as operações para a opção de usuário-jogador vs. computador nível difícil.Os parâmetros e o retorno devem ser definidos pelo programador.
 def modoDificil():
@@ -171,7 +189,7 @@ def jogadaFacil(tabuleiro):
     while True:
         linha = random.randint(0, 2)
         coluna = random.randint(0, 2)
-        if posicaoValida(linha, coluna, tabuleiro) == True:
+        if posicaoValidaComputador(linha, coluna, tabuleiro) == True:
             jogar(linha, coluna, tabuleiro, "O")
             break
 
