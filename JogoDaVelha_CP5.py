@@ -1,3 +1,6 @@
+## RM: 94615 NOME: Daniel Henrique Alcântara Oliveira Martins
+## RM: 94051 NOME: Luís Felipe Garcia Menezes
+
 ### ------------------------------------------    *-- Jogo da Velha - CP5 --* ------------------------------------------
 ### --------------------------------------------    *-- Funções do jogo --* --------------------------------------------
 
@@ -20,18 +23,14 @@ def imprimeMenuPrincipal():
     print("Jogo da Velha")
     print("1 - Jogar Usuário vs Usuário\n2 - Jogar Usuário vs Computador (Fácil)\n3 - Jogar Usuário vs Computador (Difícil)\n4 - Sair")
     opcao = int(input("Digite a opção desejada: "))
+    PjX = 0
+    PjO = 0
     if opcao == 1:
-        PjogadorX = 0
-        PjogadorO = 0
-        modoJogador(PjogadorX, PjogadorO)
+        modoJogador(PjX, PjO)
     elif opcao == 2:
-        PjogadorX = 0
-        PjogadorO = 0
-        modoFacil(PjogadorX, PjogadorO)
+        modoFacil(PjX, PjO)
     elif opcao == 3:
-        PjogadorX = 0
-        PjogadorO = 0
-        modoDificil(PjogadorX, PjogadorO)
+        modoDificil(PjX, PjO)
     elif opcao == 4:
         print("Obrigado por jogar!\nEncerrando programa...")
         exit()
@@ -49,14 +48,6 @@ def lerColuna():
 # Função que imprime o status do jogo, ou seja, a  pontuação  de  cada  jogador  na  partida  Essa função   deve   ser   chamada   diversas   vezes, sempre que iniciar um novo jogo.Não  há  retorno.  Os  parâmetros  devem  ser definidos pelo programador.
 def imprimePontuacao(jogadorX, jogadorO):
     print(f"------------*Pontuação*------------\nJogador X: {jogadorX} x Jogador O: {jogadorO}")
-
-# Função para inserir a pontuação do jogador no tabuleiro.
-def inserirPontuacao(jogadorX, jogadorO):
-    if jogadorX == True:
-        PjogadorX += 1
-    elif jogadorO == True:
-        PjogadorO += 1
-    return PjogadorX, PjogadorO
 
 # Recebe   coordenadas   de   linha   e   coluna   e verifica se aquela posição é válida (ou seja, se ela   é   existente   no   tabuleiro   e   se   aquela posição está vazia).O retorno deve ser definido pelo programador. Sugestão: retornar um valor booleano. Observação:  se  preferir,  você pode  adicionar adicionais  além  das  coordenadas  de  linha  e coluna nessa função.
 def posicaoValida(linha, coluna, tabuleiro):
@@ -114,19 +105,19 @@ def verificaVelha(tabuleiro):
         return False
 
 # Função que realiza todas as operações para a opção de usuário-jogador vs. usuário-jogador.Os parâmetros e o retorno devem ser definidos pelo programador.
-def modoJogador(PjogadorX, PjogadorO):
+def modoJogador(PjX, PjO):
     tabuleiro = inicializaTabuleiro()
     jogadorX = "X"
     jogadorO = "O"
     aux = False
-    imprimePontuacao(PjogadorX, PjogadorO)
+    imprimePontuacao(PjX, PjO)
     while aux == False:
         imprimirTabuleiro(tabuleiro)
         jogadaUsuario(tabuleiro, jogadorX)
         aux = verificaVencedor(tabuleiro)
         if aux == True:
             imprimirTabuleiro(tabuleiro)
-            PjogadorX += 1
+            PjX += 1
             break
         aux = verificaVelha(tabuleiro)
         if aux == True:
@@ -137,7 +128,7 @@ def modoJogador(PjogadorX, PjogadorO):
         aux = verificaVencedor(tabuleiro)
         if aux == True:
             imprimirTabuleiro(tabuleiro)
-            PjogadorO += 1
+            PjO += 1
             break
         aux = verificaVelha(tabuleiro)
         if aux == True:
@@ -146,25 +137,24 @@ def modoJogador(PjogadorX, PjogadorO):
     cond = input("Deseja jogar novamente? (S/N) ")
     if cond == "S" or cond == "s":
 
-        modoJogador(PjogadorX, PjogadorO)
+        modoJogador(PjX, PjO)
     else:
         print("\nObrigado por jogar!\nEncerrando programa...")
         return
 
 # Função que realiza todas as operações para a opção de usuário-jogador vs. computador nível fácil.Os parâmetros e o retorno devem ser definidos pelo programador.
-def modoFacil(PjogadorX, PjogadorO):
+def modoFacil(PjX, PjO):
     tabuleiro = inicializaTabuleiro()
     jogadorX = "X"
-    jogadorO = "O"
     aux = False
-    imprimePontuacao(PjogadorX, PjogadorO)
+    imprimePontuacao(PjX, PjO)
     while aux == False:
         imprimirTabuleiro(tabuleiro)
         jogadaUsuario(tabuleiro, jogadorX)
         aux = verificaVencedor(tabuleiro)
         if aux == True:
             imprimirTabuleiro(tabuleiro)
-            PjogadorX += 1
+            PjX += 1
             break
         aux = verificaVelha(tabuleiro)
         if aux == True:
@@ -176,7 +166,7 @@ def modoFacil(PjogadorX, PjogadorO):
         aux = verificaVencedor(tabuleiro)
         if aux == True:
             imprimirTabuleiro(tabuleiro)
-            PjogadorO += 1
+            PjO += 1
             break
         aux = verificaVelha(tabuleiro)
         if aux == True:
@@ -185,7 +175,7 @@ def modoFacil(PjogadorX, PjogadorO):
     cond = input("Deseja jogar novamente? (S/N) ")
     if cond == "S" or cond == "s":
 
-        modoFacil(PjogadorX, PjogadorO)
+        modoFacil(PjX, PjO)
     else:
         print("\nObrigado por jogar!\nEncerrando programa...")
         return
